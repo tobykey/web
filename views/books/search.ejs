@@ -37,7 +37,9 @@
             <td>
                 {{authors}}
             </td>
+            <td><button class="btn btn-primary" index="{{@index}}">도서정보</button></td>
         </tr>
+        <%-include('modal.ejs')%>
         {{/each}}
     </table>
 </script>
@@ -61,6 +63,14 @@
     let page=1;
     getBooks();
     
+    //도서정보 버튼을 클릭한 경우
+    $("#div_books").on("click", ".btn-primary", function(){
+        let index=$(this).attr("index");
+        $("#modal" + index).modal("show");
+
+    });
+
+
     $(frm).on("submit", function(e){
         e.preventDefault(); //submit 이벤트를 방지함
         query=$(frm.query).val();
