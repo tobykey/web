@@ -46,7 +46,7 @@
 
         <div class="card-footer" style="font-size:0.8rem">
             {{format price}}
-            <i class="bi bi-cart-check float-end" book="{{book @this}}"></i>
+            <i class="cart bi bi-cart-check float-end" book="{{book @this}}"></i>
         </div>
         </div>
     </div>
@@ -74,19 +74,36 @@
 
 </script>
 
-<script>
+<script type="module">
+    import {app} from "/javascripts/firebase.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js"; //database로 수정
+    const db=getDatabase(app);
+
     let query=$(frm.query).val();
     let page=1;
     getBooks();
     
     //장바구니를 클릭한경우
-    $("#div_books").on("click", ".bi-cart-check", function(){
-        if(!sessionStorage.getItem("email")){
+    $("#div_books").on("click", ".cart", async function(){
+        if(!sessionStorage.getItem("uid")){
             location.href="/users/login";
-        }else{
-            //장바구니에 등록하는 작업
-            const book=JSON.parse($(this).attr("book"));
-            console.log(book);
+            return;
+        }
+
+        const book=JSON.parse($(this).attr("book"));
+        
+        const ref_cart = ref(db, `cart/${sessionStorage.getItem("uid")}/${book.isbn}`);
+        
+        const result = await get(ref_cart);
+        console.log(result.val());
+
+        if(result.val()){
+            alert("이미 장바구니에 담긴 목록입니다.")
+        } else{
+            if(!confirm("장바구니에 추가하시겠습니까?")) return;
+     
+            set(ref_cart, book); 
+            alert("장바구니에 추가되었습니다.")
         }
     });
 

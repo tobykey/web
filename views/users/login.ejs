@@ -4,8 +4,6 @@
     }
 </style>
 
-
-
 <div class="row my-5 justify-content-center">
     <div class="col-md-6">
         <h1 class="text-center">로그인</h1>
@@ -33,6 +31,8 @@
 <script type="module">
     import {app} from "/javascripts/firebase.js";
     import {getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+    
+    
     const auth = getAuth(app);
 
 
@@ -48,7 +48,7 @@
             alert("비밀번호를 입력하세요");
             $(frm.pass).focus();
         }else{
-            //로그인
+            //로그인 체크
             //alert(email + pass);
             signInWithEmailAndPassword(auth,email,pass).then(success=>{
                 console.log(success);
