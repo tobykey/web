@@ -26,6 +26,7 @@ app.use('/users', usersRouter);
 app.use('/books', booksRouter);
 app.use('/locals', require('./routes/locals'));
 
+app.use('/posts', require('./routes/posts'));
 
 
 
