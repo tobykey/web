@@ -70,7 +70,7 @@
 
     //장바구니 도서목록
     const ref_cart=ref(db, `cart/${sessionStorage.getItem("uid")}`);
-    onValue(ref_cart, result=>{
+    onValue(ref_cart, result=>{ 
         let items=[];
        result.forEach(item=>{
             //console.log(item.key, item.val());
