@@ -67,7 +67,7 @@
         const rows=[];
 
         snapshot.docs.forEach((doc, index)=>{
-            //console.log(index, doc.id, doc.data());
+            //console.log(index, doc.id, doc.data()); // index 0 ~ 2 3 ~ 5
             const start=(page-1)*size;
             const end=(page*size)-1;
             if(index >= start && index <= end){
